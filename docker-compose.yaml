@@ -1,0 +1,49 @@
+version: "3"
+
+services:
+  mysql:
+    platform: linux/x86_64
+    image: mysql:8.0.28
+    restart: always
+    ports:
+      - "3307:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=changeme
+      - MYSQL_USER=mailbadger
+      - MYSQL_PASSWORD=changeme
+      - MYSQL_DATABASE=mailbadger
+    volumes:
+      - dbdata:/var/lib/mysql
+  redis:
+    image: redis
+    ports:
+      - 6379:6379
+  # app:
+  #   image: mailbadger/app
+  #   command: /app
+  #   ports:
+  #     - "8080:8080"
+  #   depends_on:
+  #     - mysql
+  #     - nsqd
+  #   env_file:
+  #   - .env.docker
+
+  # bulksender:
+  #   image: mailbadger/app
+  #   command: /consumers/bulksender
+  #   depends_on:
+  #     - app
+  #   env_file:
+  #   - .env.docker
+
+  # campaigner:
+  #   image: mailbadger/app
+  #   command: /consumers/campaigner
+  #   depends_on:
+  #     - app
+  #   env_file:
+  #   - .env.docker
+
+volumes:
+  dbdata:
