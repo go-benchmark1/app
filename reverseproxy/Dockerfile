@@ -1,3 +1,3 @@
-FROM nginx:1.20
+FROM nginx:1.26.1
 
 COPY nginx.conf /etc/nginx/nginx.conf
